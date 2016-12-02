@@ -1,7 +1,6 @@
 #pragma once
 
 #include <boost/preprocessor.hpp>
-#include <tuple>
 
 struct Field;
 
@@ -18,6 +17,8 @@ public:
 
 // preprocessor sorcery, beware
 
+#define DECORATE_DB_FIELD_NAME(fld) BOOST_PP_CAT(fld, _)
+
 // create field name token for query
 #define QUERY_STRING_FIELDS(s, table, fld) BOOST_PP_STRINGIZE(fld)
 
@@ -28,7 +29,7 @@ public:
     BOOST_PP_SEQ_FOLD_LEFT(QUERY_FIELD_CAT, BOOST_PP_SEQ_HEAD(FIELDS_SEQ), BOOST_PP_SEQ_TAIL(FIELDS_SEQ))
 
 // generate all get_field() accessors
-#define QUERY_FIELD_ACCESSOR(r, table, i, fld) auto BOOST_PP_CAT(get_, fld)() { return FieldValueExtractor<decltype(table::fld)>::GetValue(_result->Fetch()[i]); }
+#define QUERY_FIELD_ACCESSOR(r, table, i, fld) auto BOOST_PP_CAT(get_, fld)() { return FieldValueExtractor<decltype(table::DECORATE_DB_FIELD_NAME(fld))>::GetValue(_result->Fetch()[i]); }
 
 // result structure
 #define TYPED_QUERY(query_name, table, ...) struct query_name \

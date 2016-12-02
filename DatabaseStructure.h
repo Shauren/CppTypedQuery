@@ -3,13 +3,14 @@
 // todo - add validation of the structure at startup
 #pragma once
 
+#include "TypedQueryGenerator.h"
 #include <cstdint>
 
 struct playercreateinfo_action
 {
-    uint8_t race;
-    uint8_t class_; // reserved keyword, what now!
-    uint16_t button;
-    uint32_t action;
-    uint16_t type;
+    uint8_t DECORATE_DB_FIELD_NAME(race);
+    uint8_t DECORATE_DB_FIELD_NAME(class);
+    uint16_t DECORATE_DB_FIELD_NAME(button);
+    uint32_t DECORATE_DB_FIELD_NAME(action);
+    uint16_t DECORATE_DB_FIELD_NAME(type);
 };

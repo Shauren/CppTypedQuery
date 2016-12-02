@@ -1,6 +1,5 @@
 
 #include "DatabaseStructure.h"
-#include "TypedQueryGenerator.h"
 #include "Database.h"
 
 int main()
@@ -10,7 +9,7 @@ int main()
     TYPED_QUERY(
         /* query name */ pcia_query,
         /* table name */ playercreateinfo_action,
-        /* field list */ race, class_, action
+        /* field list */ race, class, action
     );
 
     // typed query
@@ -21,7 +20,7 @@ int main()
             // access result fields!
             uint32_t action = result.get_action();
             uint8_t race = result.get_race();
-            uint8_t class_ = result.get_class_();
+            uint8_t class_ = result.get_class();
         } while (result.NextRow());
     }
 }
